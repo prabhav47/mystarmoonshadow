@@ -8,10 +8,11 @@
 <style>
 body {
   margin: 0;
-  background: #0f0f0f;
+  background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
   color: white;
-  font-family: Arial;
+  font-family: 'Segoe UI', sans-serif;
   text-align: center;
+  overflow: hidden;
 }
 
 .section {
@@ -21,20 +22,28 @@ body {
   align-items: center;
   flex-direction: column;
   padding: 20px;
+  white-space: pre-line;
 }
 
 .active {
   display: flex;
-  animation: fade 0.6s ease;
+  animation: fade 0.8s ease;
 }
 
 button {
-  padding: 12px 25px;
-  border-radius: 25px;
+  padding: 12px 28px;
+  border-radius: 30px;
   border: none;
   margin: 10px;
   cursor: pointer;
   font-size: 15px;
+  background: white;
+  color: black;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.08);
 }
 
 input {
@@ -45,8 +54,17 @@ input {
 }
 
 @keyframes fade {
-  from {opacity: 0;}
-  to {opacity: 1;}
+  from {opacity: 0; transform: translateY(10px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+.glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {text-shadow: 0 0 10px #fff;}
+  to {text-shadow: 0 0 25px #ff4da6;}
 }
 </style>
 </head>
@@ -63,7 +81,7 @@ input {
   <button onclick="startMusic(); next(1)">Okay fine</button>
 </div>
 
-<!-- PART 2 (CHOICE) -->
+<!-- PART 2 -->
 <div class="section" id="s1">
   <h2 id="t1"></h2>
   <button onclick="choose(0)">Just a random thing</button>
@@ -112,7 +130,7 @@ input {
 
 <!-- FINAL -->
 <div class="section" id="s8">
-  <h2 id="tFinal"></h2>
+  <h2 id="tFinal" class="glow"></h2>
 </div>
 
 <script>
@@ -128,21 +146,21 @@ function startMusic() {
 }
 
 const texts = [
-"Hey Avni :) \nBefore you go ahead… promise you won’t rush this.",
+"Hey Avni :) \n\nBefore you go ahead…\npromise you won’t rush this.",
 
 "So tell me… \nwhat do you think this is going to be?",
 
-"", // dynamic
+"", 
 
-"Scientists should study this…\nhow one person managed to turn “hihi” into a full personality trait.",
+"Scientists should study this…\n\nhow one person managed\nto turn “hihi” into a full personality trait.",
 
-"Case study confirmed.\n\nAnd my dreams…\nI’m literally in life-or-death situations\nrunning, fighting, surviving like a movie scene\n\nand then I wake up\nand casually tell you like\n“yeah so I almost died yesterday”",
+"Case study confirmed.\n\nAnd my dreams…\n\nI’m literally in life-or-death situations\nrunning, fighting, surviving like a movie scene\n\nand then I wake up\nand casually tell you like\n“yeah so I almost died yesterday”",
 
-"Also…\nyou just survived your exams.\nI know you won’t admit it,\nbut that took effort.\nso yeah… good job.",
+"Also…\n\nyou just survived your exams.\n\nI know you won’t admit it,\nbut that took effort.\n\nso yeah… good job.",
 
-"We didn’t really plan this, did we?\nno big start, no dramatic moment…\njust random letters\nthat somehow… stayed.",
+"We didn’t really plan this, did we?\n\nno big start, no dramatic moment…\n\njust random letters\nthat somehow… stayed.",
 
-"", // password
+"", 
 
 "Happy Friendship Anniversary ❤️\n\nnot bad for something that started\nwith random letters…\nand somehow turned into this.\n\nyou’re still annoying btw 😝\n\nbut I guess…\nyou became important without me realizing it.\n\nso yeah… you matter."
 ];
@@ -153,13 +171,14 @@ function typeText(id, text, i=0) {
     if(i < text.length) {
       document.getElementById(id).innerHTML += text.charAt(i);
       i++;
-      setTimeout(typing, 20);
+      setTimeout(typing, 18);
     }
   }
   typing();
 }
 
 typeText("t0", texts[0]);
+typeText("t1", texts[1]);
 
 function next(n) {
   document.querySelector(".active").classList.remove("active");
@@ -189,9 +208,9 @@ function choose(option) {
 }
 
 function check() {
-  let ans = document.getElementById("answer").value.trim();
+  let ans = document.getElementById("answer").value.trim().toLowerCase();
 
-  if(ans === "8 May") {
+  if(ans === "8 may") {
     document.querySelector(".active").classList.remove("active");
     document.getElementById("s8").classList.add("active");
     typeText("tFinal", texts[8]);
@@ -203,8 +222,6 @@ function check() {
 function hint() {
   document.getElementById("hintText").innerText = "Today :)";
 }
-
-typeText("t1", texts[1]);
 
 </script>
 
