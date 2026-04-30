@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  background: #0f0f0f;
+  color: white;
+  font-family: Arial;
+  text-align: center;
+}
+
+.section {
+  height: 100vh;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.active {
+  display: flex;
+  animation: fade 0.6s ease;
+}
+
+button {
+  padding: 12px 25px;
+  border-radius: 25px;
+  border: none;
+  margin: 10px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+input {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  margin-top: 15px;
+}
+
+@keyframes fade {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgmusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PART 1 -->
+<div class="section active" id="s0">
+  <h2 id="t0"></h2>
+  <button onclick="startMusic(); next(1)">Okay fine</button>
+</div>
+
+<!-- PART 2 (CHOICE) -->
+<div class="section" id="s1">
+  <h2 id="t1"></h2>
+  <button onclick="choose(0)">Just a random thing</button>
+  <button onclick="choose(1)">Something important</button>
+</div>
+
+<!-- PART 3 -->
+<div class="section" id="s2">
+  <h2 id="t2"></h2>
+  <button onclick="next(3)">Excuse me??</button>
+</div>
+
+<!-- PART 4 -->
+<div class="section" id="s3">
+  <h2 id="t3"></h2>
+  <button onclick="next(4)">hihi</button>
+</div>
+
+<!-- PART 5 -->
+<div class="section" id="s4">
+  <h2 id="t4"></h2>
+  <button onclick="next(5)">Go on</button>
+</div>
+
+<!-- PART 6 -->
+<div class="section" id="s5">
+  <h2 id="t5"></h2>
+  <button onclick="next(6)">yayyy</button>
+</div>
+
+<!-- PART 7 -->
+<div class="section" id="s6">
+  <h2 id="t6"></h2>
+  <button onclick="next(7)">...</button>
+</div>
+
+<!-- PASSWORD -->
+<div class="section" id="s7">
+  <h3>When did we become friends?</h3>
+  <input id="answer" placeholder="Enter date">
+  <br>
+  <button onclick="check()">Submit</button>
+  <button onclick="hint()">Hint</button>
+  <p id="hintText"></p>
+</div>
+
+<!-- FINAL -->
+<div class="section" id="s8">
+  <h2 id="tFinal"></h2>
+</div>
+
+<script>
+
+let started = false;
+function startMusic() {
+  if (!started) {
+    let music = document.getElementById("bgmusic");
+    music.volume = 0.3;
+    music.play();
+    started = true;
+  }
+}
+
+const texts = [
+"Hey Avni :) \nBefore you go ahead… promise you won’t rush this.",
+
+"So tell me… \nwhat do you think this is going to be?",
+
+"", // dynamic
+
+"Scientists should study this…\nhow one person managed to turn “hihi” into a full personality trait.",
+
+"Case study confirmed.\n\nAnd my dreams…\nI’m literally in life-or-death situations\nrunning, fighting, surviving like a movie scene\n\nand then I wake up\nand casually tell you like\n“yeah so I almost died yesterday”",
+
+"Also…\nyou just survived your exams.\nI know you won’t admit it,\nbut that took effort.\nso yeah… good job.",
+
+"We didn’t really plan this, did we?\nno big start, no dramatic moment…\njust random letters\nthat somehow… stayed.",
+
+"", // password
+
+"Happy Friendship Anniversary ❤️\n\nnot bad for something that started\nwith random letters…\nand somehow turned into this.\n\nyou’re still annoying btw 😝\n\nbut I guess…\nyou became important without me realizing it.\n\nso yeah… you matter."
+];
+
+function typeText(id, text, i=0) {
+  document.getElementById(id).innerHTML = "";
+  function typing() {
+    if(i < text.length) {
+      document.getElementById(id).innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typing, 20);
+    }
+  }
+  typing();
+}
+
+typeText("t0", texts[0]);
+
+function next(n) {
+  document.querySelector(".active").classList.remove("active");
+  let next = document.getElementById("s"+n);
+  next.classList.add("active");
+
+  if(n !== 2 && n !== 7 && n !== 8) {
+    typeText("t"+n, texts[n]);
+  }
+
+  if(n === 8) {
+    typeText("tFinal", texts[8]);
+  }
+}
+
+function choose(option) {
+  document.querySelector(".active").classList.remove("active");
+  document.getElementById("s2").classList.add("active");
+
+  let intro = option === 0 
+    ? "Yeah… that’s what you think.\n\n"
+    : "Hmm… interesting choice.\n\n";
+
+  let main = "You’ve always been like this…\nclicking things without thinking.\n\nmysterious… unpredictable…\nand disappearing randomly like you never existed.";
+
+  typeText("t2", intro + main);
+}
+
+function check() {
+  let ans = document.getElementById("answer").value.trim();
+
+  if(ans === "8 May") {
+    document.querySelector(".active").classList.remove("active");
+    document.getElementById("s8").classList.add("active");
+    typeText("tFinal", texts[8]);
+  } else {
+    alert("Wrong answer 😒 try again");
+  }
+}
+
+function hint() {
+  document.getElementById("hintText").innerText = "Today :)";
+}
+
+typeText("t1", texts[1]);
+
+</script>
+
+</body>
+</html>
