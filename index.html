@@ -41,7 +41,6 @@ button {
   background: white;
   color: black;
   transition: 0.3s;
-  position: relative;
 }
 
 button:hover {
@@ -92,7 +91,6 @@ input {
   <source src="click.mp3">
 </audio>
 
-<!-- PARTS -->
 <div class="section active" id="s0">
   <h2 id="t0"></h2>
   <button onclick="clickSound();startMusic();next(1)">Okay fine</button>
@@ -133,7 +131,7 @@ input {
   <h3>When did we become friends?</h3>
   <input id="answer">
   <br>
-  <button id="submitBtn" onclick="clickSound();check()">Submit</button>
+  <button onclick="clickSound();check()">Submit</button>
   <button onclick="clickSound();hint()">Hint</button>
   <p id="hintText"></p>
 </div>
@@ -154,7 +152,7 @@ input {
 
 <script>
 
-let started=false, moveCount=0;
+let started=false;
 
 function clickSound(){
   let s=document.getElementById("clicksound");
@@ -215,7 +213,7 @@ function choose(opt){
  document.getElementById("s2").classList.add("active");
 
  let intro = opt===0 ? "Yeah… that’s what you think.\n\n" : "Hmm… interesting choice.\n\n";
- let main = "You’ve always been like this…\nclicking things without thinking.\n\nmysterious… unpredictable…\nand disappearing randomly like you never existed.";
+ let main = "You’ve always been like this…\nclicking things without thinking.\n\nmysterious… unpredictable...\nand disappearing randomly like you never existed.";
  typeText("t2",intro+main);
 }
 
@@ -253,16 +251,7 @@ function confetti(){
  }
 }
 
-// stronger moving button
-let btn=document.getElementById("submitBtn");
-btn.addEventListener("mouseover",()=>{
- if(moveCount<3){
-  btn.style.transform=`translate(${Math.random()*200-100}px,${Math.random()*120-60}px)`;
-  moveCount++;
- }
-});
-
 </script>
 
 </body>
-</html>
+  </html>
