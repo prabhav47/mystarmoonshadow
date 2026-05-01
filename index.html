@@ -41,6 +41,7 @@ button {
   background: white;
   color: black;
   transition: 0.3s;
+  position: relative;
 }
 
 button:hover {
@@ -72,7 +73,6 @@ input {
   position: fixed;
   width: 8px;
   height: 8px;
-  background: red;
   animation: fall 2s linear forwards;
 }
 
@@ -85,15 +85,18 @@ input {
 <body>
 
 <audio id="bgmusic" loop>
-  <source src="music.mp3" type="audio/mpeg">
+  <source src="music.mp3">
 </audio>
 
 <audio id="clicksound">
-  <source src="https://www.soundjay.com/buttons/sounds/button-16.mp3">
+  <source src="click.mp3">
 </audio>
 
 <!-- PARTS -->
-<div class="section active" id="s0"><h2 id="t0"></h2><button onclick="clickSound();startMusic();next(1)">Okay fine</button></div>
+<div class="section active" id="s0">
+  <h2 id="t0"></h2>
+  <button onclick="clickSound();startMusic();next(1)">Okay fine</button>
+</div>
 
 <div class="section" id="s1">
   <h2 id="t1"></h2>
@@ -101,15 +104,30 @@ input {
   <button onclick="clickSound();choose(1)">Something important</button>
 </div>
 
-<div class="section" id="s2"><h2 id="t2"></h2><button onclick="clickSound();next(3)">Excuse me??</button></div>
+<div class="section" id="s2">
+  <h2 id="t2"></h2>
+  <button onclick="clickSound();next(3)">Excuse me??</button>
+</div>
 
-<div class="section" id="s3"><h2 id="t3"></h2><button onclick="clickSound();next(4)">hihi</button></div>
+<div class="section" id="s3">
+  <h2 id="t3"></h2>
+  <button onclick="clickSound();next(4)">hihi</button>
+</div>
 
-<div class="section" id="s4"><h2 id="t4"></h2><button onclick="clickSound();next(5)">Go on</button></div>
+<div class="section" id="s4">
+  <h2 id="t4"></h2>
+  <button onclick="clickSound();next(5)">Go on</button>
+</div>
 
-<div class="section" id="s5"><h2 id="t5"></h2><button onclick="clickSound();next(6)">yayyy</button></div>
+<div class="section" id="s5">
+  <h2 id="t5"></h2>
+  <button onclick="clickSound();next(6)">yayyy</button>
+</div>
 
-<div class="section" id="s6"><h2 id="t6"></h2><button onclick="clickSound();next(7)">...</button></div>
+<div class="section" id="s6">
+  <h2 id="t6"></h2>
+  <button onclick="clickSound();next(7)">...</button>
+</div>
 
 <div class="section" id="s7">
   <h3>When did we become friends?</h3>
@@ -126,18 +144,23 @@ input {
 </div>
 
 <div class="section" id="s9">
-  <h2>One last thing…\n\nI don’t say this often,\nbut I’m really glad it’s you.</h2>
+  <h2 id="tExtra"></h2>
   <button onclick="clickSound();tooLate()">go back</button>
 </div>
 
 <div class="section" id="s10">
-  <h2>Too late now :)</h2>
+  <h2>Too late now :)<br>You’re stuck forever.</h2>
 </div>
 
 <script>
+
 let started=false, moveCount=0;
 
-function clickSound(){document.getElementById("clicksound").play();}
+function clickSound(){
+  let s=document.getElementById("clicksound");
+  s.currentTime=0;
+  s.play();
+}
 
 function startMusic(){
  if(!started){
@@ -183,9 +206,8 @@ function next(n){
  }
 
  if(n===9){
-  // slight pause effect handled naturally
+  typeText("tExtra","One last thing…\n\nI don’t say this often,\nbut I’m really glad it’s you.");
  }
-
 }
 
 function choose(opt){
@@ -231,11 +253,11 @@ function confetti(){
  }
 }
 
-// moving submit button
+// stronger moving button
 let btn=document.getElementById("submitBtn");
 btn.addEventListener("mouseover",()=>{
- if(moveCount<2){
-  btn.style.transform=`translate(${Math.random()*100-50}px,${Math.random()*50-25}px)`;
+ if(moveCount<3){
+  btn.style.transform=`translate(${Math.random()*200-100}px,${Math.random()*120-60}px)`;
   moveCount++;
  }
 });
