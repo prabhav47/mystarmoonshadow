@@ -91,6 +91,7 @@ input {
   <source src="click.mp3">
 </audio>
 
+<!-- PARTS -->
 <div class="section active" id="s0">
   <h2 id="t0"></h2>
   <button onclick="clickSound();startMusic();next(1)">Okay fine</button>
@@ -183,7 +184,12 @@ const texts=[
 
 function typeText(id,text,i=0){
  document.getElementById(id).innerHTML="";
- function t(){if(i<text.length){document.getElementById(id).innerHTML+=text.charAt(i++);setTimeout(t,18);}}
+ function t(){
+  if(i<text.length){
+    document.getElementById(id).innerHTML+=text.charAt(i++);
+    setTimeout(t,18);
+  }
+ }
  t();
 }
 
@@ -213,7 +219,7 @@ function choose(opt){
  document.getElementById("s2").classList.add("active");
 
  let intro = opt===0 ? "Yeah… that’s what you think.\n\n" : "Hmm… interesting choice.\n\n";
- let main = "You’ve always been like this…\nclicking things without thinking.\n\nmysterious… unpredictable...\nand disappearing randomly like you never existed.";
+ let main = "You’ve always been like this…\nclicking things without thinking.\n\nmysterious… unpredictable…\nand disappearing randomly like you never existed.";
  typeText("t2",intro+main);
 }
 
@@ -225,15 +231,16 @@ function check(){
   setTimeout(()=>{
     document.querySelector(".active").classList.remove("active");
     document.getElementById("s8").classList.add("active");
-    document.body.style.background="linear-gradient(135deg,#141e30,#243b55)";
     typeText("tFinal",texts[8]);
-  },600);
+  },800);
  } else {
   alert("Close… but not quite.");
  }
 }
 
-function hint(){document.getElementById("hintText").innerText="Today :)";}
+function hint(){
+ document.getElementById("hintText").innerText="Today :)";
+}
 
 function tooLate(){
  document.querySelector(".active").classList.remove("active");
@@ -254,4 +261,4 @@ function confetti(){
 </script>
 
 </body>
-  </html>
+</html>
