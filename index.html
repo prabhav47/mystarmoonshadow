@@ -68,16 +68,25 @@ input {
   to {text-shadow: 0 0 25px #ff4da6;}
 }
 
+/* 🎆 FIREWORK PARTICLES */
 .confetti {
   position: fixed;
   width: 8px;
   height: 8px;
-  top: 0;
-  animation: fall 2s linear forwards;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: explode 1s ease-out forwards;
 }
 
-@keyframes fall {
-  to {transform: translateY(100vh) rotate(360deg); opacity: 0;}
+@keyframes explode {
+  from {
+    transform: translate(0,0);
+    opacity: 1;
+  }
+  to {
+    transform: translate(var(--x), var(--y));
+    opacity: 0;
+  }
 }
 </style>
 </head>
@@ -229,11 +238,12 @@ function check(){
 
  if(ans==="8 may"){
   confetti();
+  setTimeout(confetti,200);
   setTimeout(()=>{
     document.querySelector(".active").classList.remove("active");
     document.getElementById("s8").classList.add("active");
     typeText("tFinal",texts[8]);
-  },800);
+  },900);
  } else {
   alert("Close… but not quite.");
  }
@@ -248,20 +258,35 @@ function tooLate(){
  document.getElementById("s10").classList.add("active");
 }
 
+/* 🎆 FIREWORK FUNCTION */
 function confetti(){
- for(let i=0;i<80;i++){
-  let c=document.createElement("div");
-  c.className="confetti";
-  c.style.left=Math.random()*100+"vw";
-  c.style.top="-10px";
-  c.style.background=["#ff4d4d","#ffd700","#4dff88","#4dd2ff"][Math.floor(Math.random()*4)];
-  c.style.width = c.style.height = (Math.random()*6 + 4) + "px";
-  document.body.appendChild(c);
-  setTimeout(()=>c.remove(),2000);
- }
+  let colors = ["#ff4d4d","#ffd700","#4dff88","#4dd2ff","#ff66ff"];
+
+  for(let i=0;i<120;i++){
+    let c=document.createElement("div");
+    c.className="confetti";
+
+    c.style.left="50%";
+    c.style.top="50%";
+
+    let angle = Math.random()*2*Math.PI;
+    let distance = Math.random()*300 + 120;
+
+    let x = Math.cos(angle)*distance + "px";
+    let y = Math.sin(angle)*distance + "px";
+
+    c.style.setProperty("--x", x);
+    c.style.setProperty("--y", y);
+
+    c.style.background = colors[Math.floor(Math.random()*colors.length)];
+
+    document.body.appendChild(c);
+
+    setTimeout(()=>c.remove(),1000);
+  }
 }
 
 </script>
 
 </body>
-  </html>
+</html>
