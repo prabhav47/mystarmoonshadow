@@ -72,6 +72,7 @@ input {
   position: fixed;
   width: 8px;
   height: 8px;
+  top: 0;
   animation: fall 2s linear forwards;
 }
 
@@ -252,7 +253,9 @@ function confetti(){
   let c=document.createElement("div");
   c.className="confetti";
   c.style.left=Math.random()*100+"vw";
+  c.style.top="-10px";
   c.style.background=["#ff4d4d","#ffd700","#4dff88","#4dd2ff"][Math.floor(Math.random()*4)];
+  c.style.width = c.style.height = (Math.random()*6 + 4) + "px";
   document.body.appendChild(c);
   setTimeout(()=>c.remove(),2000);
  }
@@ -261,4 +264,4 @@ function confetti(){
 </script>
 
 </body>
-</html>
+  </html>
